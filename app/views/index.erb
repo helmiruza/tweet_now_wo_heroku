@@ -7,7 +7,7 @@
             <li role="presentation"><a href="/">Home</a></li>
           </ul>
         </nav>
-        <h3 class="text-muted">CD WFC</h3>
+        <h3 class="text-muted">Recent Tweet</h3>
       </div>
     
     <div class="jumbotron">
@@ -20,15 +20,41 @@
         <%end%>
       <% end %>
     <p>
-      <form action='/create' method='post'>
+      <form action='/create' method='post' id='send-tweet'>
         <div class="form-group">
         <label for="username_twitter_id">Username</label>
         <input type="input" class="form-control" name="user[username]" placeholder="Twitter ID">
         </div>
-        <button type="submit" class="btn btn-success btn-lg">Go &raquo;</button>
+        <p><button type="submit" class="btn btn-primary btn-lg">Go &raquo;</button>
+          <div id="status"></div></p>
       </form>
+      
     </p>
     </div>
 
   </div> <!-- /container -->
 </div>
+
+<script>
+  $(function(){
+    $('#send-tweet').one("submit", function(event){
+      event.preventDefault();
+      $('#button').attr('disabled', 'disabled');
+      $("#status").append("<img src='/gifs/ajax-loader.gif'>Loading...Please wait</img>")
+      $.ajax({
+        type: "POST",
+        url: "/create",
+        data: $("#send-tweet").serialize(),
+        cache: false,
+        success: function(value){
+          // $("#status").html("<h1>Redirecting Now..</h1>");
+          console.log(value);
+          window.location.href = "/"+ value;
+        },
+        error: function(value){
+          $("#status").html("Tweet Failed!");
+        } 
+       });
+    });   
+  });
+</script>

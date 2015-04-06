@@ -1,0 +1,34 @@
+
+<!-- Main component for a primary marketing message or call to action -->
+<div class="container">
+  <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation"><a href="/">Home</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">CD WFC</h3>
+      </div>
+    
+    <div class="jumbotron">
+
+    <h1>Twitter</h1>
+    <p>Input twitter ID</p>
+      <% if !@errors.nil?%>
+        <% @errors.each do |error| %>
+          <%= error%>
+        <%end%>
+      <% end %>
+    <p>
+      <form action='/create' method='post'>
+        <div class="form-group">
+        <label for="username_twitter_id">Username</label>
+        <input type="input" class="form-control" name="user[username]" placeholder="Twitter ID">
+        </div>
+        <button type="submit" class="btn btn-success btn-lg">Go &raquo;</button>
+      </form>
+    </p>
+    </div>
+
+  </div> <!-- /container -->
+</div>

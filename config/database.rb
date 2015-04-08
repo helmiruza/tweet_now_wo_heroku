@@ -34,10 +34,10 @@ DB_NAME = db.path[1..-1]
 
 ActiveRecord::Base.establish_connection(
   :adapter  => db.scheme == 'postgres' ? 'postgresql' : db.scheme,
-  :host     => ENV[db_host],
-  :port     => ENV[db_port],
-  :username => ENV[db_user],
-  :password => ENV[db_password],
-  :database => ENV[db_database],
+  :host     => ENV["db_host"],
+  :port     => ENV["db_port"],
+  :username => ENV["db_user"],
+  :password => ENV["db_password"],
+  :database => ENV["db_database"],
   :encoding => 'utf8'
 )

@@ -1,0 +1,109 @@
+
+<!-- Main component for a primary marketing message or call to action -->
+<div class="container">
+  <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <%if session[:username] == nil%>
+            <li role="presentation"><a href="/auth/twitter">Sign In with Twitter</a></li>
+            <% else %>
+            <li role="presentation"><a>Logged in As <%=session[:username]%></a></li>
+            <% end %>
+            <li role="presentation"><a href="/">Dashboard</a></li>
+            <li role="presentation"><a href="/logout">Logout</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Recent Tweet</h3>
+      </div>
+    
+    <!-- submit your own tweet -->
+    <div class="jumbotron">
+
+    <h1>Tweet Now!</h1>
+    <p>Just input your tweet and submit!</p>
+      <% if !@errors.nil?%>
+        <% @errors.each do |error| %>
+          <%= error%>
+        <%end%>
+      <% end %>
+    <p>
+      <form action='/send/tweet' method='post' id='send-tweet'>
+        <div class="form-group">
+        <textarea class="form-control" rows="2" name="tweetnow[text]" placeholder="Twitter ID"></textarea></div>
+        <p><button type="submit" class="btn btn-primary btn-lg">Go &raquo;</button>
+          <div id="status2"></div></p>
+      </form>
+      
+    </p>
+    </div>
+
+    <!-- view other user's recent tweets -->
+    <div class="jumbotron">
+
+    <h1>View Recent 10 Tweets</h1>
+    <p>Input twitter ID of another Twitter user</p>
+      <% if !@errors.nil?%>
+        <% @errors.each do |error| %>
+          <%= error%>
+        <%end%>
+      <% end %>
+    <p>
+      <form action='/create' method='post' id='get-tweet'>
+        <div class="form-group">
+        <label for="username_twitter_id">Username</label>
+        <input type="" class="form-control" name="other[username]" placeholder="Twitter ID">
+        </div>
+        <p><button type="submit" class="btn btn-primary btn-lg">Go &raquo;</button>
+          <div id="status"></div></p>
+      </form>
+      
+    </p>
+    </div>
+
+  </div> <!-- /container -->
+</div>
+
+<script>
+  $(function(){
+    $('#get-tweet').one("submit", function(event){
+      event.preventDefault();
+      $('#button').attr('disabled', 'disabled');
+      $("#status").append("<img src='/gifs/ajax-loader.gif'>  Loading...Please wait</img>")
+      $.ajax({
+        type: "POST",
+        url: "/create",
+        data: $("#get-tweet").serialize(),
+        cache: false,
+        success: function(value){
+          // $("#status").html("<h1>Redirecting Now..</h1>");
+          console.log(value);
+          window.location.href = "/get/"+ value;
+        },
+        error: function(value){
+          $("#status").html("Tweet Loading Failed!");
+        } 
+       });
+    });   
+  });
+
+  $(function(){
+    $('#send-tweet').one("submit", function(event){
+      event.preventDefault();
+      $('#button').attr('disabled', 'disabled');
+      $("#status2").append("<img src='/gifs/ajax-loader.gif'>  Sending Tweet...Please wait</img>")
+      $.ajax({
+        type: "POST",
+        url: "/send/tweet",
+        data: $("#send-tweet").serialize(),
+        cache: false,
+        success: function(value){
+          $("#status2").html("Tweet Posted!");
+          
+        },
+        error: function(value){
+          $("#status2").html("Tweet Failed!");
+        } 
+       });
+    });   
+  });
+</script>

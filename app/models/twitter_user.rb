@@ -6,8 +6,15 @@ class TwitterUser < ActiveRecord::Base
   	@user = TwitterUser.find_by(username: username)
 
   	@user.tweets.destroy_all
+  	
+  	client = Twitter::REST::Client.new do |config|
+		  config.consumer_key        = ENV["consumer_key"]
+		  config.consumer_secret     = ENV["consumer_secret"]
+		  config.access_token        = @user.token
+		  config.access_token_secret = @user.secret
+		end
 
-  	CLIENT.user_timeline(username, count: 10).each do |x|
+  	client.user_timeline(username, count: 10).each do |x|
 			@user.tweets.create!(tweet_text: x.text)
 		end
   end
@@ -21,5 +28,29 @@ class TwitterUser < ActiveRecord::Base
 		 false
 		end
 	end
+
+	def self.authenticate(username, password)
+    @user = TwitterUser.find_by_username(username)
+
+    return false if @user.nil?
+	    if @user.password == password
+	      return @user
+	    else
+	      return false
+	    end
+  end
+
+  def tweet(username,text)
+  	@user = TwitterUser.find_by_username(username)
+
+  	client = Twitter::REST::Client.new do |config|
+		  config.consumer_key        = ENV["consumer_key"]
+		  config.consumer_secret     = ENV["consumer_secret"]
+		  config.access_token        = @user.token
+		  config.access_token_secret = @user.secret
+		end
+
+  	client.update(text)
+  end
 
 end

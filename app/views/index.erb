@@ -4,7 +4,13 @@
   <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
+            <%if session[:username] == nil%>
+            <li role="presentation"><a href="/auth/twitter">Sign In with Twitter</a></li>
+            <% else %>
+            <li role="presentation"><a>Logged in As <%=session[:username]%></a></li>
+            <% end %>
             <li role="presentation"><a href="/">Home</a></li>
+            <li role="presentation"><a href="/logout">Logout</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">Recent Tweet</h3>
@@ -12,23 +18,15 @@
     
     <div class="jumbotron">
 
-    <h1>Twitter</h1>
-    <p>Input twitter ID</p>
+    <h1>Recent Tweet</h1>
+    <p>Recent Tweet with Twitter API</p>
+    
       <% if !@errors.nil?%>
         <% @errors.each do |error| %>
           <%= error%>
         <%end%>
       <% end %>
-    <p>
-      <form action='/create' method='post' id='send-tweet'>
-        <div class="form-group">
-        <label for="username_twitter_id">Username</label>
-        <input type="input" class="form-control" name="user[username]" placeholder="Twitter ID">
-        </div>
-        <p><button type="submit" class="btn btn-primary btn-lg">Go &raquo;</button>
-          <div id="status"></div></p>
-      </form>
-      
+    <p><a href="/auth/twitter"><button type="button" class="btn btn-primary btn-lg">Sign In with Twitter&raquo;</button></a>
     </p>
     </div>
 

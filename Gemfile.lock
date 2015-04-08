@@ -19,7 +19,7 @@ GEM
     backports (3.6.4)
     buftok (0.2.0)
     builder (3.2.2)
-    byebug (4.0.4)
+    byebug (4.0.5)
       columnize (= 0.9.0)
     columnize (0.9.0)
     daemons (1.2.2)
@@ -30,6 +30,7 @@ GEM
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
+    hashie (3.4.1)
     http (0.6.4)
       http_parser.rb (~> 0.6.0)
     http_parser.rb (0.6.0)
@@ -41,6 +42,16 @@ GEM
     multi_json (1.11.0)
     multipart-post (2.0.0)
     naught (1.0.0)
+    oauth (0.4.7)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-oauth (1.0.1)
+      oauth
+      omniauth (~> 1.0)
+    omniauth-twitter (1.1.0)
+      multi_json (~> 1.3)
+      omniauth-oauth (~> 1.0)
     pg (0.18.1)
     rack (1.6.0)
     rack-protection (1.5.3)
@@ -52,9 +63,9 @@ GEM
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
       rspec-mocks (~> 3.2.0)
-    rspec-core (3.2.2)
+    rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
-    rspec-expectations (3.2.0)
+    rspec-expectations (3.2.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-mocks (3.2.1)
@@ -101,8 +112,10 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   activesupport
+  bundler
   byebug
   faker
+  omniauth-twitter
   pg
   rake
   rspec

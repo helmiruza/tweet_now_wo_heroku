@@ -16,10 +16,12 @@ gem 'activerecord'
 gem 'rake'
 gem 'twitter'
 gem 'byebug'
+gem 'omniauth-twitter'
+gem 'bundler'
 
 gem 'shotgun'
+gem 'rspec'
 
 group :test do
   gem 'faker'
-  gem 'rspec'
 end

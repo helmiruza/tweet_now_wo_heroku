@@ -22,6 +22,9 @@ gem 'bundler'
 gem 'shotgun'
 gem 'rspec'
 
+gem 'redis'
+gem 'sidekiq'
+
 group :test do
   gem 'faker'
 end

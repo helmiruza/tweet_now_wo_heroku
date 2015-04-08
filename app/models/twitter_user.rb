@@ -8,10 +8,10 @@ class TwitterUser < ActiveRecord::Base
   	@user.tweets.destroy_all
   	
   	client = Twitter::REST::Client.new do |config|
-		  config.consumer_key        = ENV["consumer_key"]
-		  config.consumer_secret     = ENV["consumer_secret"]
-		  config.access_token        = @user.token
-		  config.access_token_secret = @user.secret
+		  config.consumer_key        = API_KEYS["consumer_key"]
+		  config.consumer_secret     = API_KEYS["consumer_secret"]
+		  config.access_token        = API_KEYS["access_token"]
+		  config.access_token_secret = API_KEYS["access_token_secret"]
 		end
 
   	client.user_timeline(username, count: 10).each do |x|
@@ -44,8 +44,8 @@ class TwitterUser < ActiveRecord::Base
   	@user = TwitterUser.find_by_username(username)
 
   	client = Twitter::REST::Client.new do |config|
-		  config.consumer_key        = ENV["consumer_key"]
-		  config.consumer_secret     = ENV["consumer_secret"]
+		  config.consumer_key        = API_KEYS["consumer_key"]
+		  config.consumer_secret     = API_KEYS["consumer_secret"]
 		  config.access_token        = @user.token
 		  config.access_token_secret = @user.secret
 		end

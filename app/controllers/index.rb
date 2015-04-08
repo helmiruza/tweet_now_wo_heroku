@@ -14,7 +14,6 @@ get 'recent' do
 end
 
 post '/create' do
-
 	@user = TwitterUser.find_or_create_by(username: params[:other][:username])
 	
 	if (@user.tweets.empty? || @user.stale?)

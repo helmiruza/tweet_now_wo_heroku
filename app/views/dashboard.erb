@@ -1,21 +1,6 @@
 
 <!-- Main component for a primary marketing message or call to action -->
-<div class="container">
-  <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-            <%if session[:username] == nil%>
-            <li role="presentation"><a href="/auth/twitter">Sign In with Twitter</a></li>
-            <% else %>
-            <li role="presentation"><a>Logged in As <%=session[:username]%></a></li>
-            <% end %>
-            <li role="presentation"><a href="/">Dashboard</a></li>
-            <li role="presentation"><a href="/logout">Logout</a></li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Recent Tweet</h3>
-      </div>
-    
+<div class="container">    
     <!-- submit your own tweet -->
     <div class="jumbotron">
 
@@ -29,7 +14,7 @@
     <p>
       <form action='/send/tweet' method='post' id='send-tweet'>
         <div class="form-group">
-        <textarea class="form-control" rows="2" name="tweetnow[text]" placeholder="Twitter ID"></textarea></div>
+        <textarea class="form-control" rows="2" name="tweetnow[text]" placeholder="Your Text Here"></textarea></div>
         <p><button type="submit" class="btn btn-primary btn-lg">Go &raquo;</button>
           <div id="status2"></div></p>
       </form>
